@@ -85,6 +85,10 @@ Our goal is to minimize the waiting time of every passenger.
 | Action | An integer $a$ that represent the index of the taxi to take the passenger. |
 | Reward | Waiting time of the passenger. |
 
+After complete one action, the position and destination will be reset to another random numbers while the position of the car remain the same.
+
+The randomly generated state will be the $s_{t + 1}$ and then pushed into memory pool for training.
+
 ## Experiment
 
 ### DQN Loss
