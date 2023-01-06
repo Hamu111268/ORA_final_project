@@ -7,6 +7,7 @@
 * Problem Definition
 * Solution
 * Experiment
+* Conclution
 * Reference
 
 ## Motivation and Background
@@ -322,6 +323,14 @@ Here is the duration comparison of DQN and Greedy algorithm.
 ##### Drop 2000 edge
 
 ![drop 2000 edge](https://github.com/Hamu111268/ORA_final_project/blob/main/img_storage/Loss_history_dqn_drop_2000.png)
+
+## Conclution
+
+In carpooling problem, we consider the opposite situation of addressing problem of scheduling a fleet of taxis, focusing on providing user(passenger) a option to choose a taxi which can let user has the shortest waiting time and try to solve the problem using the reinforcement learning method.
+
+From the result, we can find that DQN has the better performance rather than Greedy algorithm no matter in experiment1 or experiment2.
+
+Future directions for extending this work include considering the relationship of individual passenger, which means if two(three or four etc.) of passengers are family(friendes etc.) then the taxi should pick up all of them whether on the way or not and also giving a restriction to taxi that if it is out of energy then it can not move anymore.
 
 ## Reference
 
