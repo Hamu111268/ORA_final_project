@@ -151,7 +151,7 @@ Other than `dist`, the code above also return another array `prev`.
 
 Every passenger will be taken by the nearest taxi in L1 distance.
 
-### Multi-Agent Deep Q Network
+### Deep Q Network
 
 
 #### Agent
