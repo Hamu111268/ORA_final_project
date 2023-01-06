@@ -90,4 +90,9 @@ Our goal is to minimize the waiting time of every passenger.
 
 ### Greedy v.s. DQN
 
+|        | drop 0 edge | drop 1000 edges | drop 3000 edges |
+| ------ |:-----------:|:---------------:|:---------------:|
+| DQN    | 2043.5945   | 2060.556        | 2138.1075       |
+| Greedy | 2281.6255   | 2333.24         | 2388.7645       |
+
 ## Reference
