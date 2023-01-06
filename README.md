@@ -120,7 +120,7 @@ Other than `dist`, the code above also return another array `prev`.
 
     - One duration is one step forward for all taxis on the map that have paired passengers.
     
-    - An episode is completed when all passengers have been sent to their respective destinations.
+    - An episode(iteration) is completed when all passengers have been sent to their respective destinations.
  
 * Every passenger is represented as two points, pick-up position and destination.
 
