@@ -210,6 +210,15 @@ and will tend to determine action by what it learned at the end.
 
 ## Experiment
 
+### Hyperparameter
+
+| Name            | Value |
+|:---------------:|:-----:|
+| $\alpha$        | 0.1   |
+| $\gamma$        | 0.8   |
+| $\max \epsilon$ | 0.9   |
+| $\min \epsilon$ | 0.05  |
+
 ### DQN Loss
 
 #### Drop 0 edge
@@ -226,10 +235,10 @@ and will tend to determine action by what it learned at the end.
 
 ### Greedy v.s. DQN
 
-|        | drop 0 edge | drop 1000 edges | drop 3000 edges |
-| ------ |:-----------:|:---------------:|:---------------:|
-| DQN    | 2043.5945   | 2060.556        | 2138.1075       |
-| Greedy | 2281.6255   | 2333.24         | 2388.7645       |
+|        | drop 1000 edges | drop 3000 edges |
+| ------ |:---------------:|:---------------:|
+| DQN    | 2060.556        | 2138.1075       |
+| Greedy | 2333.24         | 2388.7645       |
 
 ## Reference
 * Efficient Ridesharing Dispatch Using Multi-Agent Reinforcement Learning
