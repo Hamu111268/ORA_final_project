@@ -175,7 +175,7 @@ Our goal is to minimize the waiting time of every passenger.
 
 For example:
 
-Assume the number of passengers is 5, `[0, 3, 1, 2, 3]` maybe one possible action.
+Assume the number of passengers is 5, `[0, 3, 1, 2, 3]` may be one possible action.
 
 Below is the table that explains what `[0, 3, 1, 2, 3]` means.
 
