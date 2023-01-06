@@ -62,6 +62,7 @@ We have to assign taxis to take all passengers to their destination.
 * One duration is one step forward for all taxis on the map that have paired passengers.
 * Waiting time of each passenger is the time from start to the time when the passenger gets on the taxi.
 * An episode is completed when all passengers have been sent to their respective destinations.
+* Some edges will be removed from the grid map.
 
 ## Solution
 
