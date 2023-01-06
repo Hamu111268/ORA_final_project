@@ -84,7 +84,7 @@ When the problem scale is larger, Q-table will be inefficient. Therefore, Deep Q
 * The capacity of taxi is 2, which means that the number of passengers on each taxi shouldn’t exceed 2 at any moment.
 
 * There are no group passengers, which means that every passenger is individual.
-＊Drop by:First of all, the first passenger decides the destination first, and then a taxi will come to pick him up. At this time, if there is a second passenger who also wants to take this taxi, the system will first judge whether it is on the way (the place surrounded by the orange frame) , if there is a way, it will pick up the second passenger
+* Drop by:First of all, the first passenger decides the destination first, and then a taxi will come to pick him up. At this time, if there is a second passenger who also wants to take this taxi, the system will first judge whether it is on the way (the place surrounded by the orange frame) , if there is a way, it will pick up the second passenger
 <img width="1113" alt="截圖 2023-01-06 22 03 56" src="https://user-images.githubusercontent.com/122088028/211030263-6f221367-6085-42d9-9056-9ea249817042.png">
 
 
