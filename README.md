@@ -11,11 +11,13 @@
 
 ## Motivation and Background
 
-In order to solve the problem of environmental pollution and road congestion, if using carpooling services, we can reduce the amount of carbon dioxide emitted by each car.
+Nowadays, environmental pollution and road congestion problems are getting increasingly worse, especially in densely populated areas.
+If using carpooling services, we can reduce the amount of carbon dioxide emitted by each car.
+Furthermore, cutting down the cost of travel for each passenger and increasing passenger satisfaction with shorter waiting time are also the advantages of carpooling services.
 
-Furthermore, increasing customer (passenger) satisfaction with shorter waiting time.
+Here, we are going to use Reinforcement Learning to simulate the carpooling problem.
 
-Here, we are going to use reinforcement learning to simulate the carpooling problem.
+Our carpooling problem is not going to address problem of scheduling a fleet of taxis, but provide user(passenger) a option to choose a taxi which can let user has the shortest waiting time.
 
 ## Methodology
 
