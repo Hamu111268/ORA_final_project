@@ -45,9 +45,9 @@ When the problem scale is larger, Q-table will be inefficient. Therefore, Deep Q
 
 ![Image text](https://github.com/Hamu111268/ORA_final_project/blob/main/img_storage/picture3.png)
 
-### Dijkstra Algorithm
+### Dijkstra's Algorithm
 
-Dijkstra algorithm is a greedy algorithm that can find the lengths of shortest path in a graph.
+Dijkstra's algorithm is a greedy algorithm that can find the lengths of shortest path in a graph.
 
 The input is the graph and the source node, and the distance of every other node is marked as infinity.
 
@@ -235,27 +235,89 @@ and will tend to determine action by what it learned at the end.
 | $\max \epsilon$ | 0.9   |
 | $\min \epsilon$ | 0.05  |
 
-### DQN Loss
+### Comparison of durations between different number of iterations
 
-#### Drop 0 edge
+In this experiment, we use another algorithm to find the path instead of using Dijkstra's Algorithm.
 
-![drop 0 edge](https://github.com/Hamu111268/ORA_final_project/blob/main/img_storage/Loss_history_dqn_drop_0.png)
+Because every node is connected to its adjacent nodes, the algorithm below is enough to find the path.
 
-#### Drop 1000 edge
+```python
+"""
+Find the shortest path from `start_point` to `end_point`.
 
-![drop 1000 edge](https://github.com/Hamu111268/ORA_final_project/blob/main/img_storage/Loss_history_dqn_drop_1000.png)
+Notes that the length of path here is measured by Manhattan distance between points
+instead of the weight of edges on the path.
 
-#### Drop 2000 edge
+Returned path: (start_point, end_point]
+"""
+def plan_path_two_points(self, start_point, end_point):
+    x, y = start_point
+    path = []
 
-![drop 2000 edge](https://github.com/Hamu111268/ORA_final_project/blob/main/img_storage/Loss_history_dqn_drop_2000.png)
+    step = 1 if x <= end_point[0] else -1
 
-### Greedy v.s. DQN
+    while x != end_point[0]:
+        x += step
+        path.append((x, y))
+
+    step = 1 if y <= end_point[1] else -1
+
+    while y != end_point[1]:
+        y += step
+        path.append((x, y))
+
+    return path
+```
+
+|        | 500 iterations | 1000 iterations | 2000 iterations |
+| ------ | -------------- | --------------- | --------------- |
+| DQN    | 3153.31        | 3128.533        | 3274.5275       |
+| Greedy | 3652.652       | 3770.124        | 3768.404        |
+
+#### DQN Loss
+
+##### 500 iterations
+
+![500 iterations](https://github.com/Hamu111268/ORA_final_project/blob/main/img_storage/Loss_history_dqn_L1_500.png)
+
+##### 1000 iterations
+
+![1000 iterations](https://github.com/Hamu111268/ORA_final_project/blob/main/img_storage/Loss_history_dqn_L1_1000.png)
+
+##### 2000 iterations
+
+![2000 iterations](https://github.com/Hamu111268/ORA_final_project/blob/main/img_storage/Loss_history_dqn_L1_2000.png)
+
+### Randomly drop some edges
+
+In the real world, not every road is bidirectional.
+
+If there is a road construction, the road is even closed to traffic.
+
+Thus we want to drop (cut) some edges to make the environment more closed to real world.
+
+After dropping some edges, not every node is connected to its adjacent nodes.
+
+Therefore we need to use BFS or similar algorithm to find the path, and here we use Dijkstra's Algorithm.
+
+Here is the duration comparison of DQN and Greedy algorithm.
 
 |        | drop 1000 edges | drop 3000 edges |
 | ------ |:---------------:|:---------------:|
 | DQN    | 2060.556        | 2138.1075       |
 | Greedy | 2333.24         | 2388.7645       |
 
+#### DQN Loss
+
+##### Drop 1000 edge
+
+![drop 1000 edge](https://github.com/Hamu111268/ORA_final_project/blob/main/img_storage/Loss_history_dqn_drop_1000.png)
+
+##### Drop 2000 edge
+
+![drop 2000 edge](https://github.com/Hamu111268/ORA_final_project/blob/main/img_storage/Loss_history_dqn_drop_2000.png)
+
 ## Reference
+
 * Efficient Ridesharing Dispatch Using Multi-Agent Reinforcement Learning
 * https://www.freecodecamp.org/news/dijkstras-algorithm-explained-with-a-pseudocode-example/
