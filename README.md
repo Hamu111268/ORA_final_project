@@ -278,6 +278,8 @@ The loss is calculated by Huber loss function, because this is more robust to ou
 
 The formula of Huber loss is shown below:
 
+![Huber loss](https://github.com/Hamu111268/ORA_final_project/blob/main/img_storage/huber_loss.png)
+
 ##### 500 iterations
 
 ![500 iterations](https://github.com/Hamu111268/ORA_final_project/blob/main/img_storage/Loss_history_dqn_L1_500.png)
