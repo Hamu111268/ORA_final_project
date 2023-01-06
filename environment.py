@@ -40,17 +40,9 @@ class Environment:
         duration = 0
 
         for car in cars:
-            car.pair_passengers()
-            if car.status == "picking_up":
-                """
-                `cost` equals to 0 if and only if
-                the car and first passenger is at
-                the same position.
-                """
-                cost = 0
-                if len(car.path) > 0:
-                    cost += grid_map.map_cost[(car.position, car.path[0])]
-
+            car.pair_passengers(duration)
+            if car.status != "idle":
+                cost = grid_map.map_cost[(car.position, car.path[0])]
                 pq.push((duration + cost, car))
 
         while len(pq) > 0:
@@ -65,19 +57,15 @@ class Environment:
                 pq.pop()
 
                 car.move_to_next_position(duration)
-                if len(car.path) == 0:
-                    if car.status == "picking_up":
-                        car.plan_drop_off_path()
-                    elif car.status == "dropping_off":
-                        car.pair_passengers()
+                if car.status == "idle": # No pending passenger, thus no need to push to `pq`
+                    continue
 
-                        if car.status == "idle": # No pending passenger, thus no need to push to `pq`
-                            continue
-
-                cost = 0
-                if len(car.path) > 0:
-                    cost += grid_map.map_cost[(car.position, car.path[0])]
+                cost = grid_map.map_cost[(car.position, car.path[0])]
                 pq.push((duration + cost, car))
+
+        for car in cars:
+            assert len(car.pending) == 0
+            assert len(car.serving) == 0
 
         if mode == "dqn":
             reward = [-passenger.waiting_steps for passenger in passengers]

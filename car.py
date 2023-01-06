@@ -31,15 +31,14 @@ class Car:
     def assign_passenger(self, passenger):
         self.pending.append(passenger)
 
-    def pair_passengers(self):
+    def pair_passengers(self, duration):
+        assert len(self.serving) == 0
+
         if len(self.pending) == 0: # No pending passenger to serve
             self.status = "idle"
             return
 
-        self.status = "picking_up"
-
-        if len(self.serving) == 0: # Serve the first passenger
-            self.serving.append(self.pending.pop(0))
+        self.serving.append(self.pending.pop(0))
 
         # Ride sharing
         for i in range(1, self.capacity):
@@ -62,12 +61,21 @@ class Car:
 
         points = [self.position]
         for p in self.serving:
-            p.status = "wait_pick"
-            points.append(p.pick_up_point)
+            if p.pick_up_point == self.position:
+                p.status = "picked_up"
+                p.waiting_steps = duration
+            else:
+                p.status = "wait_pick"
+                points.append(p.pick_up_point)
 
         self.path = self.grid_map.plan_path(points)
 
-    def plan_drop_off_path(self):
+        if len(self.path) > 0:
+            self.status = "picking_up"
+        else:
+            self.plan_drop_off_path(duration)
+
+    def plan_drop_off_path(self, duration):
         assert len(self.serving) > 0
 
         self.status = "dropping_off"
@@ -79,8 +87,13 @@ class Car:
         Drop passengers according to the distance
         between current position and their destinations.
         """
-        for p in self.serving:
-            pq.push(p.drop_off_point)
+        for i in range(len(self.serving) - 1, -1, -1): # reverse order
+            p = self.serving[i]
+            if p.drop_off_point == self.position:
+                p.status = "dropped_off"
+                self.serving.pop(i)
+            else:
+                pq.push(p.drop_off_point)
 
         points = [self.position]
         while len(pq) > 0:
@@ -89,6 +102,9 @@ class Car:
 
         self.path = self.grid_map.plan_path(points)
 
+        if len(self.path) == 0:
+            self.pair_passengers(duration)
+
     """
     Move the car to the
     next position on the path.
@@ -96,24 +112,23 @@ class Car:
     def move_to_next_position(self, duration):
         assert self.status != "idle", "Shouldn't move"
 
-        if len(self.path) > 0:
-            self.position = self.path.pop(0)
+        self.position = self.path.pop(0)
 
-        arrived = []
-        for i, passenger in enumerate(self.serving):
-            if self.position in (passenger.pick_up_point, passenger.drop_off_point):
-                arrived.append(i)
-
-        arrived.reverse() # Loop the index from high to low
-        for i in arrived:
-            p = self.serving[i]
-
-            if self.status == "picking_up":
-                p.status = "picked_up"
-                p.waiting_steps = duration
-            elif self.status == "dropping_off":
-                p.status = "dropped_off"
+        for i in range(len(self.serving) - 1, -1, -1): # reverse order
+            passenger = self.serving[i]
+            if self.status == "picking_up" and self.position == passenger.pick_up_point:
+                passenger.status = "picked_up"
+                passenger.waiting_steps = duration
+            elif self.status == "dropping_off" and self.position == passenger.drop_off_point:
+                passenger.status = "dropped_off"
                 self.serving.pop(i)
+
+        if len(self.path) == 0:
+            if self.status == "picking_up":
+                self.plan_drop_off_path(duration)
+            else:
+                self.pair_passengers(duration)
+
 
 if __name__ == "__main__":
    pass

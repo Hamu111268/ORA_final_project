@@ -1,10 +1,14 @@
 import random
+import pickle
+import os
+import shutil
 
 from car import Car
 from passenger import Passenger
+from priority_queue import PriorityQueue
 
 class GridMap:
-    def __init__(self, rnd_seed, size, num_cars, num_passengers):
+    def __init__(self, rnd_seed, size, num_cars, num_passengers, num_drop = 0):
         self.rnd_seed = rnd_seed
         self.size = size # (row, col)
         self.num_cars = num_cars
@@ -18,6 +22,13 @@ class GridMap:
         self.add_cars(self.num_cars)
         self.add_passengers(self.num_passengers)
         self.init_map_cost()
+        self.random_drop_edges(num_drop)
+
+        self.__save_dir = "./prev_dump/"
+        if os.path.exists(self.__save_dir):
+            shutil.rmtree(self.__save_dir)
+
+        os.mkdir(self.__save_dir)
 
     """
     Test if `p` is a valid coordinate in grid map.
@@ -67,6 +78,14 @@ class GridMap:
                     self.map_cost[(p_right, p)] = self.map_cost[(p, p_right)] = 1
 
     """
+    Drop `num_drop` edges randomly
+    """
+    def random_drop_edges(self, num_drop):
+        drop = random.sample(sorted(self.map_cost), num_drop)
+        for key in drop:
+            del self.map_cost[key]
+
+    """
     Add `num_cars` cars with random state
     state: (current_x, current_y)
     """
@@ -101,43 +120,32 @@ class GridMap:
             self.passengers.append(Passenger((sx, sy), (dx, dy)))
 
     """
-    Calcute Manhattan distance between `p1` and `p2`
+    Calcute shortest distance from `p1` to `p2`
     """
-    @classmethod
     def dist_between(self, p1, p2):
         return abs(p1[0] - p2[0]) + abs(p1[1] - p2[1])
 
     """
-    Find the shortest path from `start_point` to `end_point`.
-
-    Notes that the length of path here is measured by Manhattan distance between points
-    instead of the weight of edges on the path.
+    Find the shortest path from `start_point` to `end_point` by Dijkstra Algorithm.
 
     Returned path: (start_point, end_point]
     """
     def plan_path_two_points(self, start_point, end_point):
-        x, y = start_point
+        prev = self.__get_prev(start_point)
+
         path = []
 
-        step = 1 if x <= end_point[0] else -1
+        cur = end_point
+        while cur != start_point:
+            path.append(cur)
+            _, cur = prev[cur]
 
-        while x != end_point[0]:
-            x += step
-            path.append((x, y))
-
-        step = 1 if y <= end_point[1] else -1
-
-        while y != end_point[1]:
-            y += step
-            path.append((x, y))
+        path.reverse()
 
         return path
 
     """
     Find the shortest path going through every point in `points`.
-
-    Notes that the length of path here is measured by Manhattan distance between points
-    instead of the weight of edges on the path.
     """
     def plan_path(self, points):
         path = []
@@ -146,5 +154,45 @@ class GridMap:
 
         return path
 
+    def __get_prev(self, start_point):
+        pickle_file = os.path.join(self.__save_dir, str(start_point))
+        if not os.path.exists(pickle_file):
+            self.__single_source_shortest_path(start_point, pickle_file)
+
+        with open(pickle_file, "rb") as f:
+            prev = pickle.load(f)
+
+        return prev
+
+    def __single_source_shortest_path(self, start_point, save_file):
+        prev = dict()
+
+        # Element type is (time, (x, y), (prev_x, prev_y))
+        pq = PriorityQueue(lambda lhs, rhs : lhs[0] < rhs[0])
+
+        # Use Dijkstra Algorithm to solve
+        # single source shortest path problem
+        pq.push((0, start_point, None))
+        while len(pq) > 0:
+            t, (x, y), p = pq.top()
+            pq.pop()
+
+            # Out of date
+            if (x, y) in prev:
+                continue
+
+            prev[(x, y)] = (t, p);
+
+            for nxt_pos in ((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)):
+                if ((x, y), nxt_pos) in self.map_cost:
+                    pq.push((t + self.map_cost[(x, y), nxt_pos], nxt_pos, (x, y)))
+
+        with open(save_file, "wb") as f:
+            pickle.dump(prev, f)
+
 if __name__ == "__main__":
-    pass
+    g = GridMap(1, (100, 100), 10, 20, 1000)
+
+    print(g.plan_path_two_points((0, 0), (99, 99)))
+
+    print(f"distance: {g.dist_between((0, 0), (99, 99))}")

@@ -22,7 +22,7 @@ Transition = namedtuple('Transition',
 
 class Agent:
     def __init__(self, env, input_size, output_size, hidden_size, mix_hidden = 32, batch_size = 128, lr = 0.001, alpha = .999, gamma = .999, eps_start = 0.9,
-                 eps_end = 0.05, eps_decay = 750,  replay_capacity = 10000, num_save = 200, num_episodes = 10000, mode="random", training = False, load_file = None):
+                 eps_end = 0.05, eps_decay = 7500,  replay_capacity = 10000, num_save = 200, num_episodes = 10000, mode="random", training = False, load_file = None):
         self.env = env
         self.orig_env = copy.deepcopy(env)
         self.grid_map = env.grid_map
@@ -52,7 +52,7 @@ class Agent:
         
         self.memory = ReplayMemory(self.replay_capacity)
         
-        self.device = torch.device("cpu")#"cuda:0" if torch.cuda.is_available() else 
+        self.device = torch.device("cuda")#"cuda:0" if torch.cuda.is_available() else
         print("Device being used:", self.device)
         self.policy_net = DQN(self.input_size, self.output_size , self.hidden_size).to(self.device)
         
@@ -135,6 +135,7 @@ class Agent:
 
 
     def train(self):
+        total_passengers = 0
 
         duration_sum = 0.0
 
@@ -153,22 +154,19 @@ class Agent:
             elif self.mode == "greedy":
                 action = [self.algorithm.greedy_fcfs(self.grid_map)]
             
-            
             reward, duration = self.env.step(action, self.mode)
 
             self.reset()
 
             next_state = self.get_state()
-            
+
             self.episode_durations.append(duration)
             duration_sum += duration
-            
+
+
             if self.training:
                 self.memory.push(state, action, torch.tensor(reward, device = self.device, dtype=torch.float).unsqueeze(0), next_state)
                 self.optimize_model()
-                
-                self.plot_durations(self.mode)
-                self.plot_loss_history(self.mode)
              
                 
             if self.training and episode % self.num_save == 0:
@@ -180,13 +178,15 @@ class Agent:
 
             print("Episode: ", episode)
 
-
         if self.training:
+            self.plot_durations(self.mode)
+            self.plot_loss_history(self.mode)
+
             torch.save(self.policy_net.state_dict(), self.load_file )
             if self.mode == "qmix":
                 torch.save(self.mixer.state_dict(), "mixer_" + self.load_file)
             print("Checkpoint saved")
-            
+
         print("Average duration was ", duration_sum/self.num_episodes)
         print("Finished")  
 
@@ -327,9 +327,25 @@ if __name__ == '__main__':
     #load_file = "episode_41000_dqn_model_num_cars_20_num_passengers_25_num_episodes_100000_hidden_size_256.pth" # 3218 over 1000 episodes, 316.509, 16274
     # greedy 3526, 348.731, 17251
     # random 3386, 337.336, 17092
+
     load_file = None
-    #greedy, random, dqn, qmix
-    agent = Agent(env, input_size, output_size, hidden_size, load_file = load_file, lr=0.001, alpha = 0.5, gamma = 0.3, mix_hidden = 64, batch_size=128, eps_decay = 200, num_episodes=1000, mode = "dqn", training = True) # 50,000 episodes for full trains
+
+    agent = Agent(env,
+                  input_size,
+                  output_size,
+                  hidden_size,
+                  load_file = load_file,
+                  lr = 0.001,
+                  alpha = 0.1,
+                  gamma = 0.8,
+                  mix_hidden = 128,
+                  batch_size = 128,
+                  eps_decay = 20000,
+                  num_save = 10000,
+                  num_episodes = 2000, # 50,000 episodes for full trains
+                  mode = "dqn", # greedy, random, dqn, qmix
+                  training = True)
+
     agent.train()
 
 
