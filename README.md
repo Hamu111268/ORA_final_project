@@ -84,10 +84,7 @@ Other than `dist`, the code above also return another array `prev`.
 
 ## Problem Definition
 
-* Objective：Minimize the average duration of all episodes.
-
-    - One duration is one step forward for all taxis on the map that have paired passengers.
-    - An episode is completed when all passengers have been sent to their respective destinations.
+* Objective：Minimize the waiting time of every passenger.
     
 * Setting up a map existing multiple taxis and passengers, which is called a grid map.
 
@@ -119,6 +116,10 @@ Other than `dist`, the code above also return another array `prev`.
         ```
 
 * We measure the duration time in discret time.
+
+    - One duration is one step forward for all taxis on the map that have paired passengers.
+    
+    - An episode is completed when all passengers have been sent to their respective destinations.
  
 * Every passenger is represented as two points, pick-up position and destination.
 
