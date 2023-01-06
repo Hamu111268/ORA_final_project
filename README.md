@@ -274,7 +274,8 @@ def plan_path_two_points(self, start_point, end_point):
 
 #### DQN Loss
 
-The loss is calculated by Huber loss function, because this is more robust to outliers when the estimates of waiting time are very noisy.
+The loss is calculated by Huber loss function mentioned in the reference paper and Pytorch tutorial,
+because this is more robust to outliers when the estimates of waiting time are very noisy.
 
 The formula of Huber loss is shown below:
 
@@ -325,3 +326,4 @@ Here is the duration comparison of DQN and Greedy algorithm.
 
 * Efficient Ridesharing Dispatch Using Multi-Agent Reinforcement Learning
 * https://www.freecodecamp.org/news/dijkstras-algorithm-explained-with-a-pseudocode-example/
+* https://pytorch.org/tutorials/intermediate/reinforcement_q_learning.html
