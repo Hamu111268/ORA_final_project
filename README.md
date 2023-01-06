@@ -95,6 +95,8 @@ Other than `dist`, the code above also return another array `prev`.
 
     - The number of passengers is 40, this number is fixed in every episode.
 
+    - In each episode, reset all passengers' positions and destinations.
+
     - The number of taxi is 20, this number is fixed in every episode.
 
     - In the map, a random cost is set between every pair of adjacent nodes, the random cost is the number of steps required for the taxi to go to the next node.
