@@ -5,7 +5,7 @@ class Environment:
         self.grid_map = grid_map
 
     """
-    Reset the cars and passengers on the grid map
+    Reset the passengers on the grid map
     """
     def reset(self):
         self.grid_map.passengers = []

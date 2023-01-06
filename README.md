@@ -59,10 +59,12 @@ We have to assign taxis to take all passengers to their destination.
 ### Environment
 
 * In the map, a random cost is set between every pair of adjacent nodes, the random cost is the number of steps required for the taxi to go to the next node.
+    ![Image text](https://github.com/Hamu111268/ORA_final_project/blob/main/img_storage/random_cost.png)
 * One duration is one step forward for all taxis on the map that have paired passengers.
 * Waiting time of each passenger is the time from start to the time when the passenger gets on the taxi.
 * An episode is completed when all passengers have been sent to their respective destinations.
 * Some edges will be removed from the grid map.
+    ![Image text](https://github.com/Hamu111268/ORA_final_project/blob/main/img_storage/random_drop_edges.png)
 
 ## Solution
 
@@ -88,6 +90,9 @@ Our goal is to minimize the waiting time of every passenger.
 After complete one action, the position and destination will be reset to another random numbers while the position of the car remain the same.
 
 The randomly generated state will be the $s_{t + 1}$ and then pushed into memory pool for training.
+
+![Image text](https://github.com/Hamu111268/ORA_final_project/blob/main/img_storage/reset_passenger.png)
+
 
 ## Experiment
 
