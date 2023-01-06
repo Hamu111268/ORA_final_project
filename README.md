@@ -153,15 +153,10 @@ Every passenger will be taken by the nearest taxi in L1 distance.
 
 ### Multi-Agent Deep Q Network
 
-Because one taxi can be assigned to take a variable number of passengers, defining action will be difficult if an agent is represented as a taxi.
-
-Thus we represent an agent as a passenger.
-
-Our goal is to minimize the waiting time of every passenger.
 
 #### Agent
 
-* Passengers
+* All Passengers
 
 #### State
 
