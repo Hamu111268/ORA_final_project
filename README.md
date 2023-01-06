@@ -50,7 +50,9 @@ When the problem scale is larger, Q-table will be inefficient. Therefore, Deep Q
     - One duration is one step forward for all taxis on the map that have paired passengers.
     - An episode is completed when all passengers have been sent to their respective destinations.
     
- * Setting up a grid map as a map where multiple taxis and passengers 
+ * Setting up a map existing multiple taxis and passengers, which is called a grid map.
+ 
+ * 
 
 We represent the map with a grid map, and there will be multiple taxis and passengers on the map.
 
