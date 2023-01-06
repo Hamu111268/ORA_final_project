@@ -58,6 +58,10 @@ We have to assign taxis to take all passengers to their destination.
 
 ### Environment
 
+After we assigning each passenger to a taxi, the environment will automatically find the shortest path by Dijkstra Algorithm.
+
+Then the taxis will move along with the path to take all passengers.
+
 * In the map, a random cost is set between every pair of adjacent nodes, the random cost is the number of steps required for the taxi to go to the next node.
     ![Image text](https://github.com/Hamu111268/ORA_final_project/blob/main/img_storage/random_cost.png)
 * One duration is one step forward for all taxis on the map that have paired passengers.
