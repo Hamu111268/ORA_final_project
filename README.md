@@ -132,7 +132,7 @@ Other than `dist`, the code above also return another array `prev`.
 
   - There are one taxi and two passengers(the blue one and the pink one) on the map in this example.
   
-  - Both passengers own their recent position and destination.
+  - Both passengers own their recent position and destination and are assigned to this taxi. 
   
         1. The taxi comes to pick the blue passenger up.
         
