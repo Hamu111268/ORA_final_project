@@ -43,6 +43,43 @@ When the problem scale is larger, Q-table will be inefficient. Therefore, Deep Q
 
 ![Image text](https://github.com/Hamu111268/ORA_final_project/blob/main/img_storage/picture3.png)
 
+### Dijkstra Algorithm
+
+Dijkstra algorithm is a greedy algorithm that can find the lengths of shortest path in a graph.
+
+The input is the graph and the source node, and the distance of every other node is marked as infinity.
+
+Below is the pseudocode:
+
+* `dist[v]` is the length from source node to node `v`
+
+```
+function Dijkstra(Graph, source):
+    for each vertex v in Graph.Vertices:
+        dist[v] ← INFINITY
+        prev[v] ← UNDEFINED
+        add v to Q
+    dist[source] ← 0
+
+    while Q is not empty:
+        u ← vertex in Q with min dist[u]
+        remove u from Q
+
+        for each neighbor v of u still in Q:
+            alt ← dist[u] + Graph.Edges(u, v)
+            if alt < dist[v]:
+                dist[v] ← alt
+                prev[v] ← u
+
+    return dist[], prev[]
+```
+
+This algorithm always choose the node with minimum distance from `Q`, and update the distance of its neighbor nodes.
+
+Other than `dist`, the code above also return another array `prev`.
+
+`prev[v]` will be the previous node of `v` on the shortest path from source to `v`.
+
 ## Problem Definition
 
 * Objective：Minimize the average duration of all episodes.
