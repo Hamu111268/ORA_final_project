@@ -221,7 +221,14 @@ By using this method, the agent will tend to randomly choose action at beginning
 and will tend to determine action by what it learned at the end.
 
 ## Experiment
+
 * Reason to use duration : All taxis go forward with a step representing a duration, and if all the passengers arrive at their destinations, an episode is completed. A shorter episode time means better performance, because the wating time of all passengers will be less.
+* The loss is calculated by Huber loss function mentioned in the reference paper and Pytorch tutorial, because this is more robust to outliers when the estimates of waiting time are very noisy.
+    The formula of Huber loss is shown below:
+    * $\delta$ is the difference between $Q^{\text{new}}(s, a)$ and $Q^{\text{old}}(s, a)$
+
+    ![Huber loss](https://github.com/Hamu111268/ORA_final_project/blob/main/img_storage/huber_loss.png)
+
 ### Hyperparameter
 
 | Name                   | Value |
@@ -274,12 +281,6 @@ def plan_path_two_points(self, start_point, end_point):
 
 #### DQN Loss
 
-The loss is calculated by Huber loss function mentioned in the reference paper and Pytorch tutorial,
-because this is more robust to outliers when the estimates of waiting time are very noisy.
-
-The formula of Huber loss is shown below:
-
-![Huber loss](https://github.com/Hamu111268/ORA_final_project/blob/main/img_storage/huber_loss.png)
 
 ##### 500 iterations
 
