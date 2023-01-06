@@ -224,12 +224,14 @@ and will tend to determine action by what it learned at the end.
 
 ### Hyperparameter
 
-| Name            | Value |
-|:---------------:|:-----:|
-| $\alpha$        | 0.1   |
-| $\gamma$        | 0.8   |
-| $\max \epsilon$ | 0.9   |
-| $\min \epsilon$ | 0.05  |
+| Name                   | Value |
+|:----------------------:|:-----:|
+| $\alpha$               | 0.1   |
+| $\gamma$               | 0.8   |
+| $\max \epsilon$        | 0.9   |
+| $\min \epsilon$        | 0.05  |
+| replay memory capacity | 10000 |
+| batch size             | 128   |
 
 ### Comparison of durations between different number of iterations
 
