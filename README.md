@@ -129,7 +129,7 @@ Below is the table that explains what `[0, 3, 1, 2, 3]` means.
 
 #### Reward
 
-* Total duraiton of one episode.
+* Waiting time of every passenger.
 
 #### Transition
 
