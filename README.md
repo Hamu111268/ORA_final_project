@@ -88,6 +88,18 @@ Our goal is to minimize the waiting time of every passenger.
 
 ### DQN Loss
 
+#### Drop 0 edge
+
+![drop 0 edge](https://github.com/Hamu111268/ORA_final_project/blob/main/img_storage/Loss_history_dqn_drop_0.png)
+
+#### Drop 1000 edge
+
+![drop 1000 edge](https://github.com/Hamu111268/ORA_final_project/blob/main/img_storage/Loss_history_dqn_drop_1000.png)
+
+#### Drop 2000 edge
+
+![drop 2000 edge](https://github.com/Hamu111268/ORA_final_project/blob/main/img_storage/Loss_history_dqn_drop_2000.png)
+
 ### Greedy v.s. DQN
 
 |        | drop 0 edge | drop 1000 edges | drop 3000 edges |
