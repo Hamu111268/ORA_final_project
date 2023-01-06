@@ -50,34 +50,40 @@ When the problem scale is larger, Q-table will be inefficient. Therefore, Deep Q
     - One duration is one step forward for all taxis on the map that have paired passengers.
     - An episode is completed when all passengers have been sent to their respective destinations.
     
- * Setting up a map existing multiple taxis and passengers, which is called a grid map.
+* Setting up a map existing multiple taxis and passengers, which is called a grid map.
+
+    - The map size is 100 x 100, and the coordinates of the lower left and upper right position is (0, 0) and (99, 99) respectively.
+
+    - The number of passengers is 40.
+
+    - The number of taxi is 20.
+
+    - In the map, a random cost is set between every pair of adjacent nodes, the random cost is the number of steps required for the taxi to go to the next node.
+        ```python
+        """
+        Set the weight of edges in the grid map with random value
+        """
+        def init_map_cost(self):
+            for row in range(self.size[0]):
+                for col in range(self.size[1]):
+                    p = (row, col)
+
+                    p_down = (row + 1, col)
+                    if self.is_valid(p_down):
+                        self.map_cost[(p_down, p)] = self.map_cost[(p, p_down)] = random.randint(1, 9)
+
+                    p_right = (row, col + 1)
+                    if self.is_valid(p_right):
+                        self.map_cost[(p_right, p)] = self.map_cost[(p, p_right)] = random.randint(1, 9)
+        ```
+
+* We measure the duration time in discret time.
  
- * 
+* Every passenger is represented as two points, pick-up position and destination.
 
-We represent the map with a grid map, and there will be multiple taxis and passengers on the map.
+* The capacity of taxi is 2, which means that the number of passengers on each taxi shouldn’t exceed 2 at any moment.
 
-All passengers have their own destination.
-
-We have to assign taxis to take all passengers to their destination.
-
-### Constraints
-
-* The capacity of a taxi is 2, which means that the number of passengers on each taxi shouldn’t exceed 2 at any moment.
 * There are no group passengers, which means that every passenger is individual.
-
-### Environment
-
-After we assigning each passenger to a taxi, the environment will automatically find the shortest path by Dijkstra Algorithm.
-
-Then the taxis will move along with the path to take all passengers.
-
-* In the map, a random cost is set between every pair of adjacent nodes, the random cost is the number of steps required for the taxi to go to the next node.
-    ![Image text](https://github.com/Hamu111268/ORA_final_project/blob/main/img_storage/random_cost.png)
-* One duration is one step forward for all taxis on the map that have paired passengers.
-* Waiting time of each passenger is the time from start to the time when the passenger gets on the taxi.
-* An episode is completed when all passengers have been sent to their respective destinations.
-* Some edges will be removed from the grid map.
-    ![Image text](https://github.com/Hamu111268/ORA_final_project/blob/main/img_storage/random_drop_edges.png)
 
 ## Solution
 
@@ -93,19 +99,58 @@ Thus we represent an agent as a passenger.
 
 Our goal is to minimize the waiting time of every passenger.
 
-| Name   | Description |
-| ------ | ----------- |
-| Agent  | One passenger. |
-| State  | Positions of all taxis $(c_x, c_y)$. Positions of all passengers $(p_x, p_y)$. Destination of all passengers $(d_x, d_y)$. |
-| Action | An integer $a$ that represent the index of the taxi to take the passenger. |
-| Reward | Waiting time of the passenger. |
+#### Agent
 
-After complete one action, the position and destination will be reset to another random numbers while the position of the car remain the same.
+* Passengers
+
+#### State
+
+* $(c_x, c_y)$, positions of all taxis.
+* $(p_x, p_y)$, pick-up point of all passengers.
+* $(d_x, d_y)$, destination of all passengers.
+
+#### Action
+
+* An 1-D array $a$ that represent the index of the taxi to take the passenger.
+
+For example:
+
+Assume the number of passengers is 5, `[0, 3, 1, 2, 3]` maybe one possible action.
+
+Below is the table that explains what `[0, 3, 1, 2, 3]` means.
+
+| Passenger index | Assigned Taxi index |
+|:---------------:|:-------------------:|
+| 0               | 0                   |
+| 1               | 3                   |
+| 2               | 1                   |
+| 3               | 2                   |
+| 4               | 3                   |
+
+#### Reward
+
+* Total duraiton of one episode.
+
+#### Transition
+
+The position of taxis at the end of this episode will effect the duration of next episode. 
+
+Thus we only set the passengers' positions and destinations with random numbers.
 
 The randomly generated state will be the $s_{t + 1}$ and then pushed into memory pool for training.
 
-![Image text](https://github.com/Hamu111268/ORA_final_project/blob/main/img_storage/reset_passenger.png)
+```python
+class Environment:
+    def __init__(self, grid_map):
+        self.grid_map = grid_map
 
+    """
+    Reset the passengers on the grid map
+    """
+    def reset(self):
+        self.grid_map.passengers = []
+        self.grid_map.add_passengers(self.grid_map.num_passengers)
+```
 
 ## Experiment
 
