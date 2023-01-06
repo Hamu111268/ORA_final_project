@@ -231,7 +231,7 @@ and will tend to determine action by what it learned at the end.
 | $\max \epsilon$        | 0.9   |
 | $\min \epsilon$        | 0.05  |
 | replay memory capacity | 10000 |
-| batch size             | 128   |
+| batch size $B$         | 128   |
 
 ### 1. Comparison of durations between different number of iterations
 
@@ -273,6 +273,10 @@ def plan_path_two_points(self, start_point, end_point):
 | Greedy | 3652.652       | 3770.124        | 3768.404        |
 
 #### DQN Loss
+
+The loss is calculated by Huber loss function, because this is more robust to outliers when the estimates of waiting time are very noisy.
+
+The formula of Huber loss is shown below:
 
 ##### 500 iterations
 
