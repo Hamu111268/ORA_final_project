@@ -123,7 +123,20 @@ Other than `dist`, the code above also return another array `prev`.
 * The capacity of taxi is 2, which means that the number of passengers on each taxi shouldn’t exceed 2 at any moment.
 
 * There are no group passengers, which means that every passenger is individual.
-* Drop by：First of all, the first passenger decides the destination first, and then a taxi will come to pick him up. At this time, if there is a second passenger who also wants to take this taxi, the system will first judge whether it is on the way (the place surrounded by the orange frame) , if there is on the way, it will pick up the second passenger.
+
+* The rule of dropping by：
+
+  - There are one taxi and two passengers(the blue one and the pink one) on the map in this example.
+  
+  - Both passengers own their recent position and destination.
+  
+        1. The taxi comes to pick the blue passenger up.
+        
+        2. When the taxi moved to the position of the blue passenger, the system will judge whether there is other passenger on the way(the place surrounded by the orange frame).
+         
+        3. If there is other passenger(the pink one), the taxi will pick up the second passenger first, then go to the destination of the first passenger(the blue one).
+        
+        4. Otherwise, go directly to the destination of the passenger. 
 <img width="1201" alt="截圖 2023-01-06 23 34 29" src="https://user-images.githubusercontent.com/122088028/211044853-2a7b76c2-91aa-4937-a2de-270737d8d9a1.png">
 
 
