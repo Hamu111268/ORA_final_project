@@ -54,6 +54,7 @@ The input is the graph and the source node, and the distance of every other node
 Below is the pseudocode:
 
 * `dist[v]` is the length from source node to node `v`
+* `Q` is a queue that stores nodes that will be processed later. This is usually implemented by binary heap or fibonacci heap in order to get minimum node.
 
 ```
 function Dijkstra(Graph, source):
