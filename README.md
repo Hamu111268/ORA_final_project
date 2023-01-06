@@ -54,9 +54,9 @@ When the problem scale is larger, Q-table will be inefficient. Therefore, Deep Q
 
     - The map size is 100 x 100, and the coordinates of the lower left and upper right position is (0, 0) and (99, 99) respectively.
 
-    - The number of passengers is 40.
+    - The number of passengers is 40, this number is fixed in every episode.
 
-    - The number of taxi is 20.
+    - The number of taxi is 20, this number is fixed in every episode.
 
     - In the map, a random cost is set between every pair of adjacent nodes, the random cost is the number of steps required for the taxi to go to the next node.
         ```python
