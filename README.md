@@ -195,6 +195,19 @@ class Environment:
         self.grid_map.add_passengers(self.grid_map.num_passengers)
 ```
 
+#### $\epsilon$-greedy
+
+$\epsilon$ is an floating point number between 0 and 1,
+and this is the probability that the agent will choose random action.
+
+Because initially the agent doesn't know how to determine the action,
+this method allows the agent to learn different ways to determine action by randomly choosing it.
+
+As the experiment progresses, the value of $\epsilon$ will keep decreasing until it reach the minimum value.
+
+By using this method, the agent will tend to randomly choose action at beginning,
+and will tend to determine action by what it learned at the end.
+
 ## Experiment
 
 ### DQN Loss
