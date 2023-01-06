@@ -219,3 +219,4 @@ class Environment:
 
 ## Reference
 * Efficient Ridesharing Dispatch Using Multi-Agent Reinforcement Learning
+* https://www.freecodecamp.org/news/dijkstras-algorithm-explained-with-a-pseudocode-example/
