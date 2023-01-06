@@ -233,7 +233,7 @@ and will tend to determine action by what it learned at the end.
 | replay memory capacity | 10000 |
 | batch size             | 128   |
 
-### Comparison of durations between different number of iterations
+### 1. Comparison of durations between different number of iterations
 
 In this experiment, we use another algorithm to find the path instead of using Dijkstra's Algorithm.
 
@@ -286,7 +286,7 @@ def plan_path_two_points(self, start_point, end_point):
 
 ![2000 iterations](https://github.com/Hamu111268/ORA_final_project/blob/main/img_storage/Loss_history_dqn_L1_2000.png)
 
-### Randomly drop some edges
+### 2. Randomly drop some edges
 
 In the real world, not every road is bidirectional.
 
