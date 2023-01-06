@@ -124,7 +124,8 @@ Other than `dist`, the code above also return another array `prev`.
 
 * There are no group passengers, which means that every passenger is individual.
 * Drop by：First of all, the first passenger decides the destination first, and then a taxi will come to pick him up. At this time, if there is a second passenger who also wants to take this taxi, the system will first judge whether it is on the way (the place surrounded by the orange frame) , if there is on the way, it will pick up the second passenger.
-<img width="1113" alt="截圖 2023-01-06 22 03 56" src="https://user-images.githubusercontent.com/122088028/211030263-6f221367-6085-42d9-9056-9ea249817042.png">
+<img width="1201" alt="截圖 2023-01-06 23 34 29" src="https://user-images.githubusercontent.com/122088028/211044853-2a7b76c2-91aa-4937-a2de-270737d8d9a1.png">
+
 
 
 ## Solution
