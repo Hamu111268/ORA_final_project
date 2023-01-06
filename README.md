@@ -221,7 +221,7 @@ By using this method, the agent will tend to randomly choose action at beginning
 and will tend to determine action by what it learned at the end.
 
 ## Experiment
-
+* Reason to use duration : All taxis go forward with a step representing a duration, and if all the passengers arrive at their destinations, an episode is completed. A shorter episode time means better performance, because the wating time of all passengers will be less.
 ### Hyperparameter
 
 | Name                   | Value |
