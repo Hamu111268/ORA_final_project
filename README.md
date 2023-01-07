@@ -334,7 +334,7 @@ From the result, we can find that DQN has the better performance rather than Gre
 
 Future directions for extending this work include considering the relationship of individual passenger, which means if two(three or four etc.) of passengers are family(friendes etc.) then the taxi should pick up all of them whether on the way or not and also giving a restriction to taxi that if it is out of energy then it can not move anymore.
 
-Moreover, as for passenger, except the waiting time, the expense of taking a taxi is very likely to be a concern point(as long as waiting for a while, the cost could be decreased). Thus, adding cost term to the objective function of this study or reformulating the objective function by considering the connection of the waiting time and the cost is a good choice too. 
+Moreover, as for passenger, except the waiting time, the expense of taking a taxi is very likely to be a concern point(as long as waiting for a while, the cost could be decreased). Thus, adding cost term to the objective function of this study or reformulating the objective function by considering the combination of the waiting time and the cost is also a good choice. 
 
 ## Reference
 
