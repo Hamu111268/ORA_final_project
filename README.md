@@ -309,7 +309,7 @@ Therefore we need to use BFS or similar algorithm to find the path, and here we 
 
 Here is the duration comparison of DQN and Greedy algorithm.
 
-|        | drop 1000 edges | drop 3000 edges |
+|        | drop 1000 edges | drop 2000 edges |
 | ------ |:---------------:|:---------------:|
 | DQN    | 2060.556        | 2138.1075       |
 | Greedy | 2333.24         | 2388.7645       |
