@@ -1,4 +1,4 @@
-# ORA_final_project(Reinforcement Learning in C)
+# ORA_final_project(Reinforcement Learning in Carpooling problem)
 
 Jan 07,2023/ by 李韋杰、胡芯瑋、鄭澤賢
 
